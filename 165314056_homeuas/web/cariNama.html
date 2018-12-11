@@ -138,109 +138,128 @@
             </style>
 
             <p>
-                <strong>Pencarian data pasien</strong>
+            <center><strong>Pencarian data pasien</strong></center>
 
-                <br/>
-            </p>
+            <br/>
+        </p>
 
-            <div class="contact-form">
-                <table>
+        <div class="contact-form">
+            <center><table>
                     <tr><td>NAMA</td> <td>:</td> <td><input type="text" id="nama"/> <button type="button" onclick="loadDoc()" id="btn">Cari</button></td></tr>
-                </table>
+                </table></center>
 
-                <br/><br/><br/><h2><strong>Hasil Pencarian</strong></h2><br/>
-                <table>
-                    <tr><td>Nama</td> <td>:</td> <td><input type="text" id="nama" value=""/></td>
-                    <tr><td>Alamat</td> <td>:</td> <td><input type="text" id="alamat" value=""/></td></tr>
-                    <tr><td>NIK</td> <td>:</td> <td><input type="text" id="nik" value=""/></td></tr>
-                    <tr><td>Tanggal Lahir</td> <td>:</td> <td><input type="text" id="tanggalLahir" value=""/></td></tr>
-                    <tr><td>Kelamin</td> <td>:</td><td><input type="text" id="kelamin" value=""/></td><tr>
+            <center><br/><br/><br/><h2><strong>Hasil Pencarian</strong></h2><br/></center>
 
-                </table>
-                <script>
-                    function loadDoc() {
 
-                        var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariNamaPasien?nama=" + nama.value;
-                        var xhttp = new XMLHttpRequest();
-                        xhttp.open("GET", url, true);
-                        xhttp.send();
-                        xhttp.onreadystatechange = function () {
-                            if (this.readyState == 4 && this.status == 200) {
-                                var objj = JSON.parse(this.responseText);
-                                document.getElementById("nama").value = objj.nama;
-                                document.getElementById("alamat").value = objj.alamat;
-                                document.getElementById("nik").value = objj.nik;
-                                document.getElementById("tanggalLahir").value = objj.tanggalLahir;
-                                document.getElementById("kelamin").value = objj.kelamin;
-                            }
-                        };
+            <div id="id01"></div>
+
+            <script>
+                function loadDoc() {
+                    var xmlhttp = new XMLHttpRequest();
+
+                    var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariNamaPasien?nama=" + nama.value;
+
+                    xmlhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            myFunction(this.responseText);
+                        }
                     }
-                </script>
+                    xmlhttp.open("GET", url, true);
+                    xmlhttp.send();
+
+                    function myFunction(response) {
+                        var arr = JSON.parse(response);
+                        var i;
+                        var out = "<center><table align='center' style='width: 60%;' border='1'> <tr><td>noRm</td><td>nama</td><td>alamat</td><td>nik</td><td>tanggalLahir</td><td>kelamin</td></tr></center>";
+
+                        for (i = 0; i < arr.length; i++) {
+                            out += "<tr><td>" +
+                                    arr[i].noRm +
+                                    "</td><td>" +
+                                    arr[i].nama +
+                                    "</td><td>" +
+                                    arr[i].alamat +
+                                    "</td><td>" +
+                                    arr[i].nik +
+                                    "</td><td>" +
+                                    arr[i].tanggalLahir +
+                                    "</td><td>" +
+                                    arr[i].kelamin;
+
+                        }
+                        out += "</table>";
+                        document.getElementById("id01").innerHTML = out;
+                    }
+                }
 
 
 
 
-        </section>
+
+            </script>
+
+    </section>
 
 
 
 
-    </body>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="span6 offset3">
-                    <ul class="social-networks">
-                        <li><a href="#"><i class="icon-circled icon-bgdark icon-instagram icon-2x"></i></a></li>
-                        <li><a href="#"><i class="icon-circled icon-bgdark icon-twitter icon-2x"></i></a></li>
-                        <li><a href="#"><i class="icon-circled icon-bgdark icon-dribbble icon-2x"></i></a></li>
-                        <li><a href="#"><i class="icon-circled icon-bgdark icon-pinterest icon-2x"></i></a></li>
-                    </ul>
-                    <p class="copyright">
-                        &copy; Delviana. All rights reserved.
-                    <div class="credits">
+</body>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="span6 offset3">
+                <ul class="social-networks">
+                    <li><a href="#"><i class="icon-circled icon-bgdark icon-instagram icon-2x"></i></a></li>
+                    <li><a href="#"><i class="icon-circled icon-bgdark icon-twitter icon-2x"></i></a></li>
+                    <li><a href="#"><i class="icon-circled icon-bgdark icon-dribbble icon-2x"></i></a></li>
+                    <li><a href="#"><i class="icon-circled icon-bgdark icon-pinterest icon-2x"></i></a></li>
+                </ul>
+                <p class="copyright">
+                    &copy; Delviana. All rights reserved.
+                <div class="credits">
 
 
-                    </div>
                 </div>
             </div>
         </div>
-        <!-- ./container -->
-    </footer>
-    <a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-    <!-- nav -->
-    <script src="js/jquery.scrollTo.js"></script>
-    <script src="js/jquery.nav.js"></script>
-    <!-- localScroll -->
-    <script src="js/jquery.localScroll.js"></script>
-    <!-- bootstrap -->
-    <script src="js/bootstrap.js"></script>
-    <!-- prettyPhoto -->
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <!-- Works scripts -->
-    <script src="js/isotope.js"></script>
-    <!-- flexslider -->
-    <script src="js/jquery.flexslider.js"></script>
-    <!-- inview -->
-    <script src="js/inview.js"></script>
-    <!-- animation -->
-    <script src="js/animate.js"></script>
-    <!-- twitter -->
-    <script src="js/jquery.tweet.js"></script>
-    <!-- custom functions -->
-    <script src="js/custom.js"></script>
+    </div>
+    <!-- ./container -->
+</footer>
+<a href="#" class="scrollup">
+    < i class = "icon-angle-up icon-square icon-bgdark icon-2x" > </i> < /a>
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+<!-- nav -->
+<script src="js/jquery.scrollTo.js"></script>
+<script src="js/jquery.nav.js"></script>
+<!-- localScroll -->
+<script src="js/jquery.localScroll.js"></script>
+<!-- bootstrap -->
+<script src="js/bootstrap.js"></script>
+<!-- prettyPhoto -->
+<script src="js/jquery.prettyPhoto.js"></script>
+<!-- Works scripts -->
+<script src="js/isotope.js"></script>
+<!-- flexslider -->
+<script src="js/jquery.flexslider.js"></script>
+<!-- inview -->
+<script src="js/inview.js"></script>
+<!-- animation -->
+<script src="js/animate.js"></script>
+<!-- twitter -->
+<script src="js/jquery.tweet.js"></script>
+<!-- custom functions -->
+<script src="js/custom.js"></script>
 
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="js/popper.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Plugins js -->
-    <script src="js/plugins.js"></script>
-    <!-- Active js -->
-    <script src="js/active.js"></script>
+<script src="js/jquery/jquery-2.2.4.min.js"></script>
+<!-- Popper js -->
+<script src="js/popper.min.js"></script>
+<!-- Bootstrap js -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Plugins js -->
+<script src="js/plugins.js"></script>
+<!-- Active js -->
+<script src="js/active.js"></script>
 
 </body>
 
