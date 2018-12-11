@@ -137,85 +137,30 @@
                 }
             </style>
 
+            <p>
+                <strong>Pencarian data pasien</strong>
 
-            <section>
+                <br/>
+            </p>
 
-                <div class="container formTAK">
-                    <div id="antrian">
-                        <h2>Form Cari Nama Pasien </h2>
-                        <hr>
-                        <form onsubmit="return make_json2(this)" method="POST">
-                            <div class="form-group">
-                                <label>NAMA</label>
-                                <input type="text" class="form-control" id="nama" placeholder="Masukan NIK">        
-                            </div>
-                            <button type="button" class="btn btn-outline-primary btn-sub" onclick="loadDoc()">Cari</button>
-                            <div class="form-group"> 
-                                <label>Nama</label>
-                                <input type="text" class="form-control" id="nama">
-                            </div>
-                            <div class="form-group"> 
-                                <label>Alamat</label>
-                                <input type="text" class="form-control" id="alamat">
-                            </div>
-                            <div class="form-group"> 
-                                <label>Tanggal Rawat</label>
-                                <input type="date" class="form-control" id="tanggal" >
-                            </div>
-                            <div class="form-group"> 
-                                <label>Klinik</label>
-                                <input type="text" class="form-control" id="namaKlinik" placeholder="Masukan Klinik">
-                            </div>
-                            <button type="submit" class="btn btn-outline-primary btn-sub" data-toggle="modal" data-target="#myModal2">Submit</button>
-                            <!-- The Modal -->
-                            <div class="modal fade" id="myModal2">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
+            <div class="contact-form">
+                <table>
+                    <tr><td>NAMA</td> <td>:</td> <td><input type="text" id="nama"/> <button type="button" onclick="loadDoc()" id="btn">Cari</button></td></tr>
+                </table>
 
-                                        Modal Header 
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Berhasil Menambah Antrian Pasien</h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
+                <br/><br/><br/><h2><strong>Hasil Pencarian</strong></h2><br/>
+                <table>
+                    <tr><td>Nama</td> <td>:</td> <td><input type="text" id="nama" value=""/></td>
+                    <tr><td>Alamat</td> <td>:</td> <td><input type="text" id="alamat" value=""/></td></tr>
+                    <tr><td>NIK</td> <td>:</td> <td><input type="text" id="nik" value=""/></td></tr>
+                    <tr><td>Tanggal Lahir</td> <td>:</td> <td><input type="text" id="tanggalLahir" value=""/></td></tr>
+                    <tr><td>Kelamin</td> <td>:</td><td><input type="text" id="kelamin" value=""/></td><tr>
 
-                                        Modal body 
-                                        <div class="modal-body">
-                                            <p>Data Berhasil Disimpan</p>
-                                        </div>
-
-                                        Modal footer 
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
+                </table>
                 <script>
-                    function make_json2(form) {
-                        var json = {
-                            "tanggal": form.tanggal.value,
-                            "noRm": form.nik.value,
-                            "nama": form.nama.value,
-                            "alamat": form.alamat.value,
-                            "namaKlinik": form.namaKlinik.value
-                        };
-                        var html = JSON.stringify(json, 0, 100);
-                        var Url = "http://202.94.83.190:8080/165314056_serviceku/webresources/Antrian/addAntrian";
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("POST", Url, false);
-                        xhr.setRequestHeader("Content-type", "application/json");
-                        xhr.send(html);
-                        document.getElementById("output2").innerHTML = "berhasil tambah antrian";
-                        return false;
-                    }
                     function loadDoc() {
-                        var url = "http://202.94.83.190:8080/165314056_serviceku/webresources/Pasien/cariPasien?nik=" + nik.value;
 
+                        var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariNamaPasien?nama=" + nama.value;
                         var xhttp = new XMLHttpRequest();
                         xhttp.open("GET", url, true);
                         xhttp.send();
@@ -224,11 +169,18 @@
                                 var objj = JSON.parse(this.responseText);
                                 document.getElementById("nama").value = objj.nama;
                                 document.getElementById("alamat").value = objj.alamat;
+                                document.getElementById("nik").value = objj.nik;
+                                document.getElementById("tanggalLahir").value = objj.tanggalLahir;
+                                document.getElementById("kelamin").value = objj.kelamin;
                             }
-                        }
+                        };
                     }
                 </script>
-            </section>
+
+
+
+
+        </section>
 
 
 
