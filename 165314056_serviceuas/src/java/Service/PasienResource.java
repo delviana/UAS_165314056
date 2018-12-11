@@ -45,6 +45,7 @@ public class PasienResource {
      * @return an instance of java.lang.String
      */
     @GET
+     @Path("pasien rs_uas")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJson() {
         //TODO return proper representation object
@@ -80,12 +81,12 @@ public class PasienResource {
     }
 
     @GET
-    @Path("cariPasien")
+    @Path("cariNama")
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public Response CariPasien(
-            @QueryParam("nik") String nik) {
+    public Response CariNama(
+            @QueryParam("nama") String nama) {
         PasienHelper helper = new PasienHelper();
-        Pasien hasil = helper.cariPasien(nik);
+        Pasien hasil = helper.cariPasien(nama);
         Gson gson = new Gson();
         return Response.status(200)
                 .entity(gson.toJson(hasil))
@@ -102,20 +103,4 @@ public class PasienResource {
                 .build();
     }
 
-    @POST
-    @Path("addPasien")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response addNewPasien(String data) {
-        Gson gson = new Gson();
-        Pasien pasien = gson.fromJson(data, Pasien.class);
-        PasienHelper help = new PasienHelper();
-        help.addNewPasien(pasien.getNik(), pasien.getNama(), pasien.getAlamat(), pasien.getNik(), pasien.getTanggalLahir(), pasien.getKelamin());
-
-        return Response.status(200)//penting
-                .entity(pasien)
-                .build();//penting
-
-    }
 }
-
-    

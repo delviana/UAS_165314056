@@ -52,16 +52,25 @@ public class PasienHelper {
             return list.get(0);
         } else {
             return null;
+        }}
+    public Pasien cariNama(String nama) {
+        // Create session
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        // Create String query
+        String query = "from Pasien u where u.nama=:nama";
+        Query q = session.createQuery(query);
+        q.setParameter("nama", nama);
+        // siapkan list,hasil pencarian dan panggil pencarian
+        List<Pasien> list = q.list();
+        // tutuup session
+        session.close();
+
+        if (list.size() > 0) {
+            return list.get(0);
+        } else {
+            return null;
         }
     }
 
-    public void addNewPasien(String noRm, String nama, String alamat, String nik, Date tanggalLahir, String kelamin) {
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        Pasien pasien = new Pasien(noRm, nama, alamat, nik, tanggalLahir, kelamin);
-        session.saveOrUpdate(pasien);
-        transaction.commit();
-        session.close();
-
-    }
+   
 }
