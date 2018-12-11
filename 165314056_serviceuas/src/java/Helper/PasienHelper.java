@@ -16,7 +16,7 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author Acer
+ * @author Suster
  */
 public class PasienHelper {
 
